@@ -1,0 +1,3 @@
+#!c:\users\nxulu\pycharmprojects\dapt\venv\scripts\python.exe
+from numba.pycc import main
+main()
