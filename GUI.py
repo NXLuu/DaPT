@@ -213,6 +213,10 @@ class App(customtkinter.CTk):
         self.plot_waveform()
         self.reset_result()
     def plot_waveform(self):
+
+        for widget in self.inside_frame_left.winfo_children():
+            widget.destroy()
+
         fs_rate, signal = wav.read(self.file_name)
         l_audio = len(signal.shape)
         if l_audio == 2:
@@ -248,7 +252,7 @@ class App(customtkinter.CTk):
 
     def predict(self):
         self.reset_result()
-        model = classifier.classifier(self.file_name)
+        model = classifier.classify(self.file_name)
         self.label_info_1.set_text("Kết Quả Dự Đoán: \n" + model[0])
 
         if (model[0] == "đơn tấu"):
@@ -284,29 +288,6 @@ class App(customtkinter.CTk):
                                              height=50, text_font=("Roboto Medium", -18), fg_color="#595959",
                                              text_color="#8f8f8f")
         self.three.grid(row=0, column=2, columnspan=1, pady=20, padx=10, sticky="")
-
-
-
-
-
-
-# Buttons
-# play_button = customtkinter.CTkButton(master=root, text='Play', command=self.play_music)
-# play_button.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
-#
-# skip_f = customtkinter.CTkButton(master=root, text='>', command=self.skip_forward, width=2)
-# skip_f.place(relx=0.7, rely=0.7, anchor=tkinter.CENTER)
-#
-# skip_b = customtkinter.CTkButton(master=root, text='<', command=skip_back, width=2)
-# skip_b.place(relx=0.3, rely=0.7, anchor=tkinter.CENTER)
-#
-# slider = customtkinter.CTkSlider(master=root, from_= 0, to=1, command=volume, width=210)
-# slider.place(relx=0.5, rely=0.78, anchor=tkinter.CENTER)
-#
-# progressbar = customtkinter.CTkProgressBar(master=root, progress_color='#32a85a', width=250)
-# progressbar.place(relx=.5, rely=.85, anchor=tkinter.CENTER)
-
-# root.mainloop()
 
 if __name__ == "__main__":
     app = App()

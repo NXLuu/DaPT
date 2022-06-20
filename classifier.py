@@ -18,7 +18,7 @@ from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_
 plt.tight_layout()
 plt.rcParams["figure.figsize"] = (10,7.5)
 
-def classifier(fileName):
+def save_model():
     # Load data
     data_set = pd.read_csv(CreateDataset.Name, index_col=False)
     data_set = np.array(data_set)
@@ -29,34 +29,37 @@ def classifier(fileName):
     x = data_set[:, :col-1]
     y = data_set[:, col-1]
 
-    neigh = KNeighborsClassifier(n_neighbors=1)
-    # neigh.fit(x, y)
+    neigh = KNeighborsClassifier(n_neighbors=7)
+    neigh.fit(x, y)
 
-    clf = svm.SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-                  decision_function_shape='ovr', degree=3, gamma=0.02, kernel='linear',
-                  max_iter=-1, probability=False, random_state=None, shrinking=True,
-                  tol=0.001, verbose=False)
-
-    clf.fit(x, y)
+    joblib.dump(neigh, "model.sav")
 
 
-    # y, sr = librosa.load(fileName)
-    # librosa.get_duration(y, sr)
-    # data = np.array([extract_feature(y)])
-    # scaler = joblib.load("scaler.save")
-    # data = scaler.transform(data)
-    # res = neigh.predict(data)
-    # Cross-validation score
-    print("Cross-validation score: ")
-    print(cross_val_score(neigh, x, y, scoring="accuracy"))
+    # # Cross-validation score
+    # print("Cross-validation score: ")
+    # print(cross_val_score(neigh, x, y, scoring="accuracy"))
+    #
+    # # Cross_validation predictions
+    # predictions = cross_val_predict(neigh, x, y, cv=3)
+    # # A better figure representation of the confusion matrix
+    # print_confusion_matrix(confusion_matrix(y, predictions), classNames)
+    #
+    #
+    # # return res
 
-    # Cross_validation predictions
-    predictions = cross_val_predict(neigh, x, y, cv=3)
-    # A better figure representation of the confusion matrix
-    print_confusion_matrix(confusion_matrix(y, predictions), classNames)
+def classify(fileName):
+    loaded_model = joblib.load("model.sav")
+
+    y, sr = librosa.load(fileName)
+    librosa.get_duration(y, sr)
+    data = np.array([extract_feature(y)])
+    scaler = joblib.load("scaler1.save")
+    data = scaler.transform(data)
+    res = loaded_model.predict(data)
+
+    return res
 
 
-    # return res
 
 #Names of the classes
 classNames = ["đơn tấu", "song tấu", "hòa tấu"]
@@ -75,4 +78,4 @@ def print_confusion_matrix(confusion_matrix,class_names,figsize=(5,3),fontsize=1
     plt.show()
     return fig
 
-classifier("fd")
+save_model()
