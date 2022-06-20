@@ -42,7 +42,6 @@ def get_sampels():
     audios_numpy = np.array(audios)
     return audios_numpy, data_labels
 
-
 def main():
     is_created = False
     audios_numpy, data_labels = get_sampels()

@@ -16,7 +16,7 @@ def extract_feature(samples):
     # Timbre features
     energy = rms(samples)
     l_zc = zc(samples)
-    silient_ratio1 = silient_ratio(samples)
+    silient_ratio1 = silent_ratio(samples)
     spectral_centroid = librosa.feature.spectral_centroid(y=samples, sr=sr, n_fft=fs, hop_length=hs)
     spectral_bandwidth = librosa.feature.spectral_bandwidth(y=samples, sr=sr, n_fft=fs, hop_length=hs)
     spectral_contrast = librosa.feature.spectral_contrast(y=samples, sr=sr, n_fft=fs, hop_length=hs)
@@ -58,7 +58,7 @@ def sgn(x):
     x[x < 0] = -1
     return x
 
-def silient_ratio(y):
+def silent_ratio(y):
     threshold = np.mean(abs(y)) * 0.06
     y[abs(y) < threshold] = 0
     ratio = np.array([

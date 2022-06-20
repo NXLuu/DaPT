@@ -212,6 +212,7 @@ class App(customtkinter.CTk):
         self.file_name = filename
         self.plot_waveform()
         self.reset_result()
+
     def plot_waveform(self):
 
         for widget in self.inside_frame_left.winfo_children():
@@ -267,9 +268,6 @@ class App(customtkinter.CTk):
             self.three = customtkinter.CTkButton(master=self.frame_result, text='Hòa Tấu', command=self.predict,
                                                  height=50, text_font=("Roboto Medium", -18), fg_color="red")
             self.three.grid(row=0, column=2, columnspan=1, pady=20, padx=10, sticky="")
-
-
-
 
 
     def reset_result(self):

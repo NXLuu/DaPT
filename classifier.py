@@ -35,17 +35,17 @@ def save_model():
     joblib.dump(neigh, "model.sav")
 
 
-    # # Cross-validation score
-    # print("Cross-validation score: ")
-    # print(cross_val_score(neigh, x, y, scoring="accuracy"))
-    #
-    # # Cross_validation predictions
-    # predictions = cross_val_predict(neigh, x, y, cv=3)
-    # # A better figure representation of the confusion matrix
-    # print_confusion_matrix(confusion_matrix(y, predictions), classNames)
-    #
-    #
-    # # return res
+    # Cross-validation score
+    print("Cross-validation score: ")
+    print(cross_val_score(neigh, x, y, scoring="accuracy"))
+
+    # Cross_validation predictions
+    predictions = cross_val_predict(neigh, x, y, cv=3)
+    # A better figure representation of the confusion matrix
+    print_confusion_matrix(confusion_matrix(y, predictions), classNames)
+
+
+    # return res
 
 def classify(fileName):
     loaded_model = joblib.load("model.sav")
@@ -78,4 +78,3 @@ def print_confusion_matrix(confusion_matrix,class_names,figsize=(5,3),fontsize=1
     plt.show()
     return fig
 
-save_model()

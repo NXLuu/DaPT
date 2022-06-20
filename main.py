@@ -18,8 +18,8 @@ import openpyxl
 duoPath = "D:\Kì 4\Đa phương tiện\Dataset\Song tấu"
 soloPath = "D:\Kì 4\Đa phương tiện\Dataset\Đơn tấu"
 concertPath = "D:\Kì 4\Đa phương tiện\Dataset\Hòa tấu"
-
-mypath = duoPath;
+test = "D:\Kì 4\Đa phương tiện\Dataset\\test"
+mypath = test;
 
 
 
